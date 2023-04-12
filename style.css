@@ -1,0 +1,69 @@
+:root {
+  --light_wheat: wheat;
+  --dark_wheat: rgb(240, 183, 78);
+  --grey_font: rgb(65, 64, 64);
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+#screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: grey;
+
+  /* grid */
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+#game {
+  width: 100%;
+  height: 100%;
+  grid-area: 1 / 2 / 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+#board {
+  position: relative;
+  background-color: var(--dark_wheat);
+  border: 8px solid var(--dark_wheat);
+  height: 300px;
+  width: 300px;
+  left: 14%;
+  border-radius: 4%;
+
+  /* grid */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+.cell_obj {
+  position: relative;
+  display: flex;
+  align-content: center;
+  background-color: var(--light_wheat);
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  justify-content: space-around;
+  align-items: center;
+  color: var(--grey_font);
+  font-size: xx-large;
+  font-weight: bolder;
+}
+.empty {
+  color: transparent;
+}
