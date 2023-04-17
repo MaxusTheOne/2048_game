@@ -50,25 +50,26 @@ function displayAllNums() {
 
 // movement of the numbers in array
 function move(from, to) {
-  if (boardArray[to] === 0) {
-    console.log(`move, from: ${from} to: ${to}`);
-    boardArray[to] = boardArray[from];
-    boardArray[from] = 0;
-    boardMovableArray[from] = true;
-    boardMovableArray[to] = displayAllNums();
-    allCellDisplay();
-    console.log(boardArray);
-  } else if (boardArray[from] === boardArray[to]) {
-    boardArray[to] = boardArray[from] * 2;
-    boardArray[from] = 0;
-
-    displayAllNums();
-    allCellDisplay();
+  if (boardMovableArray[from] != false && boardMovableArray[to] != false) {
+    if (boardArray[to] === 0) {
+      console.log(`move, from: ${from} to: ${to}`);
+      boardArray[to] = boardArray[from];
+      boardArray[from] = 0;
+      boardMovableArray[from] = true;
+      boardMovableArray[to] = displayAllNums();
+      allCellDisplay();
+      console.log(boardArray);
+    } else if (boardArray[from] === boardArray[to]) {
+      boardArray[to] = boardArray[from] * 2;
+      boardArray[from] = 0;
+      boardMovableArray[to] = false;
+    }
   }
 }
 
 function moveAllUp() {
-  for (let i = 0; i < 16; i++) moveUp(i);
+  for (let i = 0; i <= 4; i++) for (let i = 0; i < 16; i++) moveUp(i);
+  endMove();
 }
 function moveUp(num) {
   if (boardArray[num] != 0 && num >= 4) {
@@ -77,7 +78,8 @@ function moveUp(num) {
 }
 
 function moveAllDown() {
-  for (let i = 15; i >= 0; i--) moveDown(i);
+  for (let i = 0; i <= 4; i++) for (let i = 15; i >= 0; i--) moveDown(i);
+  endMove();
 }
 function moveDown(num) {
   console.log(boardArray[num] != 0 && num <= 11);
@@ -87,7 +89,8 @@ function moveDown(num) {
 }
 
 function moveAllRight() {
-  for (let i = 15; i >= 0; i--) moveRight(i);
+  for (let i = 0; i <= 4; i++) for (let i = 15; i >= 0; i--) moveRight(i);
+  endMove();
 }
 function moveRight(num) {
   console.log(boardArray[num] != 0 && num != 3);
@@ -96,11 +99,30 @@ function moveRight(num) {
   }
 }
 function moveAllLeft() {
-  for (let i = 0; i < 16; i++) moveLeft(i);
+  for (let i = 0; i <= 4; i++) for (let i = 0; i < 16; i++) moveLeft(i);
+  endMove();
 }
 function moveLeft(num) {
   console.log(boardArray[num] != 0 && num != 0 && num != 4 && num != 8 && num != 12);
   if (boardArray[num] != 0 && num != 0 && num != 4 && num != 8 && num != 12) {
     move(num, num - 1);
+  }
+}
+function endMove() {
+  boardMovableArray.fill(true);
+  addRandomNum();
+  displayAllNums();
+  allCellDisplay();
+}
+
+function addRandomNum() {
+  let loopBool = true;
+  while (loopBool) {
+    const randNum = Math.floor(Math.random() * 16);
+    console.log(`doing a loop with randNum: ${randNum} this will be: ${boardArray[randNum] == 2}`);
+    if (boardArray[randNum] == 0) {
+      loopBool = false;
+      boardArray[randNum] = 2;
+    }
   }
 }
