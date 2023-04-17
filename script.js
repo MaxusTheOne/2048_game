@@ -1,6 +1,7 @@
 "use strict";
 window.addEventListener("load", start);
 const boardArray = new Array(16).fill(0);
+const boardMovableArray = new Array(16).fill(true);
 console.log(boardArray);
 document.addEventListener("keydown", function (event) {
   // console.log(event.key);
@@ -47,18 +48,20 @@ function displayAllNums() {
   for (let i = 0; i < 16; i++) document.querySelector("#cell" + i).textContent = boardArray[i];
 }
 
-// movement of the array
+// movement of the numbers in array
 function move(from, to) {
   if (boardArray[to] === 0) {
     console.log(`move, from: ${from} to: ${to}`);
     boardArray[to] = boardArray[from];
     boardArray[from] = 0;
-    displayAllNums();
+    boardMovableArray[from] = true;
+    boardMovableArray[to] = displayAllNums();
     allCellDisplay();
     console.log(boardArray);
   } else if (boardArray[from] === boardArray[to]) {
     boardArray[to] = boardArray[from] * 2;
     boardArray[from] = 0;
+
     displayAllNums();
     allCellDisplay();
   }
